@@ -1,0 +1,621 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Machine Learning and Benchmark SVs</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/simple.css" id="theme">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+		
+			<div class="slides">
+				<!-- Intro slide -->
+				<section>
+					<h3>Machine Learning Strategies to Identify High Confidence Structural Variants in Human Genome Reference Materials</h3>
+					<br>
+					<h3 style="font-size: 30px !important">Lesley M. Chapman</h3>
+					<h3 style="font-size:25px !important">National Institute of Standards and Technology</h3>
+				
+				</section>
+
+
+				<section>
+					<h3>Overview</h3>
+					<br>
+						<ul>
+						<li style="font-size: 30px !important" class= "fragment">Background</li>
+						<li style="font-size: 30px !important" class= "fragment">Approach</li>
+						<li style="font-size: 30px !important" class= "fragment">Preliminary Results</li>
+						<li style="font-size: 30px !important" class= "fragment">Future Directions</li>
+						</ul>
+				</section>
+
+	
+			<!-- What is NIST? -->
+				<section>
+					<h3>What is NIST?</h3>
+					<!-- <img src='images/Standards_IMG_0.png' style="height: 500px;" alt='DEL TSNE'> -->
+				</section>
+				<section>
+					<h3>What is NIST?</h3>
+					<img src='images/NIST_location.png' style="height: 500px;" alt='DEL TSNE'>
+				</section>
+				<section>
+					<h3>What is NIST?</h3>
+					<img src='images/Standards_IMG_0.png' style="height: 500px;" alt='DEL TSNE'>
+				</section>
+
+				<section>
+					<h3>What is NIST?</h3>
+					<img src='images/Standards_IMG_1.png' style="height: 500px;" alt='DEL TSNE'>
+				</section>
+
+				<section>
+					<h3>What is NIST?</h3>
+					<img src='images/Standards_IMG_2.png' style="height: 500px;" alt='DEL TSNE'>
+				</section>
+
+				<section>
+					<h3>What is NIST?</h3>
+					<img src='images/Standards_IMG_3.png' style="height: 500px;" alt='DEL TSNE'>
+				</section>
+
+				<!--  -->
+	
+			<!-- GIAB Consortium -->
+				<section>
+					<h4>NIST GIAB</h4>
+
+					<div id="left">
+					<br>
+					<ul>
+						<li style="font-size: 20px !important">Public-private-academic consortium hosted by NIST</li>
+					</ul>
+
+					<div id="right">
+					<img src='images/GIAB_IMG_1.png' style="height: 250px;" alt='SV'>
+
+					</div>
+
+				</section>
+
+				<section>
+					<h4>NIST GIAB</h4>
+
+					<div id="left">
+					<br>
+					<ul>
+						<li style="font-size: 20px !important">Public-private-academic consortium hosted by NIST</li>
+						<li style="font-size: 20px !important" class= "fragment">“measuring sticks” for gene sequencing</li>
+						<li style="font-size: 20px !important" class= "fragment">Develop reference standards, reference methods, and reference data for genomic sequencing</li>
+					</ul>
+
+					<div id="right">
+					<img src='images/GIAB_IMG_2.png' style="height: 250px;" alt='SV'>
+
+					</div>
+
+				</section>
+
+				<section>
+					<h4>NIST GIAB Reference Materials</h4>
+
+					<div id="left">
+					<br>
+					<ul>
+						<li style="font-size: 18px !important">Well-characterized, whole genome standards</li>
+						<li style="font-size: 18px !important" class= "fragment">Guides that can tell a laboratory how well its DNA sequencing processes are working by measuring the performance of the equipment, chemistry and data analysis involved</li>
+						<li style="font-size: 18px !important" class= "fragment">RMs:</li>
+						<li style="font-size: 18px !important" class= "fragment">NIST RM 8375 — genomes for four bacterial species</li>
+						<li style="font-size: 18px !important" class= "fragment">NIST RM 8393 — male of Chinese ancestry</li>
+						<li style="font-size: 18px !important; color: blue" class= "fragment"> NIST RM 8392— Eastern European Ashkenazi Jewish Trio [son, father and mother] (NIST RM 8391 - son)</li>
+					</ul>
+
+				</section>
+
+				<!--  -->
+
+				<!-- Aim and Approach  -->
+				<section>
+					<h4>Central Aim</h4>
+					<br>
+
+					<h6 style="font-size: 25px !important"> Generate a high confidence list of large indels and structural variants (SVs) [>=20bp] within the NIST human reference genome [NIST RM 8391]. Machine learning will be used to integrate data from multiple sequencing technologies to generate the benchmark set of SVs.</h6>
+	
+					<!-- <img src='images/NGS_Analysis_Pipeline.png' style="height: 200px;" alt='SV'> -->
+
+				</section>
+
+				<section>
+					<h4>Project Goal</h4>
+
+				<br>
+					<img src='images/Project_Goal_IMG_1.png' style="height: 500px;" alt='SV'>
+
+				</section>
+
+				<section>
+					<h4>Project Goal</h4>
+
+				<br>
+					<img src='images/Project_Goal_IMG_2.png' style="height: 500px;" alt='SV'>
+
+				</section>
+
+
+				<section>
+					<h4>Previous Work - Small Variants</h4>
+
+				<br>
+					<img src='images/NA12878_IMG_2.png' style="height: 500px;" alt='SV'>
+
+				</section>
+
+				<section>
+					<h4>Approach</h4>
+
+				<br>
+				<!-- <img src='images/svviz_3_IMG_1.png' style="height: 500px;" alt='SV'> -->
+
+				</section>
+
+
+				<section>
+					<h4>Approach</h4>
+
+				<br>
+				<img src='images/svviz_3_IMG_1.png' style="height: 500px;" alt='SV'>
+
+				</section>
+
+
+				<!--  -->
+
+				<!-- Data Collection  -->
+
+				<section>
+					<h4>Data Collection</h4>
+
+				<br>
+					<img src='images/Analysis_Pipeline_1.png' style="height: 500px;" alt='SV'>
+
+				</section>
+				<section>
+					<h4>Data Collection</h4>
+
+				<br>
+					<img src='images/Analysis_Pipeline_2.png' style="height: 500px;" alt='SV'>
+
+				</section>
+				<section>
+					<h4>Data Collection</h4>
+
+				<br>
+					<img src='images/Analysis_Pipeline_3.png' style="height: 500px;" alt='SV'>
+
+				</section>
+				<section>
+					<h4>Data Collection</h4>
+
+				<br>
+					<img src='images/Analysis_Pipeline_4.png' style="height: 500px;" alt='SV'>
+
+				</section>
+				<section>
+					<h4>Data Collection</h4>
+
+				<br>
+					<img src='images/Analysis_Pipeline_5.png' style="height: 500px;" alt='SV'>
+
+				</section>
+				<section>
+					<h4>Data Collection</h4>
+
+				<br>
+					<img src='images/Analysis_Pipeline_6.png' style="height: 500px;" alt='SV'>
+
+				</section>
+				<section>
+					<h4>Data Collection</h4>
+
+				<br>
+					<img src='images/Analysis_Pipeline_7.png' style="height: 500px;" alt='SV'>
+
+				</section>
+	
+				<!--  -->
+
+				<!-- Feature Generation  -->
+				<section>
+					<h4>Feature Generation</h4>
+
+				<br>
+<!-- 					<img src='images/NA12878_IMG_2.png' style="height: 500px;" alt='SV'> -->
+
+				</section>
+
+				<section>
+					<h4>Feature Generation</h4>
+
+				<br>
+
+				<h4 style="font-size: 35px !important">SVVIZ</h4>
+				<h4 style="font-size: 25px !important">Noah Spies</h4>
+
+				<img src='images/svviz_1.png' style="height: 350px;" alt='SV'>
+
+				</section>
+
+					<section>
+					<h4>Feature Generation</h4>
+
+				<br>
+
+
+				<img src='images/svviz_IMG_1.png' style="height: 350px;" alt='SV'>
+
+				</section>
+									<section>
+					<h4>Feature Generation</h4>
+
+				<br>
+
+
+				<img src='images/svviz_IMG_2.png' style="height: 350px;" alt='SV'>
+
+				</section>
+									<section>
+					<h4>Feature Generation</h4>
+
+				<br>
+
+
+				<img src='images/svviz_IMG_3.png' style="height: 350px;" alt='SV'>
+
+				</section>
+									<section>
+					<h4>Feature Generation</h4>
+
+				<br>
+
+
+				<img src='images/svviz_IMG_4.png' style="height: 350px;" alt='SV'>
+
+				</section>
+									<section>
+					<h4>Feature Generation</h4>
+
+				<br>
+
+
+				<img src='images/svviz_IMG_5.png' style="height: 350px;" alt='SV'>
+
+				</section>
+									<section>
+					<h4>Feature Generation</h4>
+
+				<br>
+
+
+				<img src='images/svviz_IMG_6.png' style="height: 350px;" alt='SV'>
+
+				</section>
+									<section>
+					<h4>Feature Generation</h4>
+
+				<br>
+
+
+				<img src='images/svviz_IMG_7.png' style="height: 350px;" alt='SV'>
+
+				</section>
+									<section>
+					<h4>Feature Generation</h4>
+
+				<br>
+
+
+				<img src='images/svviz_IMG_8.png' style="height: 350px;" alt='SV'>
+
+				</section>
+									<section>
+					<h4>Feature Generation</h4>
+
+				<br>
+
+
+				<img src='images/svviz_IMG_9.png' style="height: 350px;" alt='SV'>
+
+				</section>
+
+				<!--  -->
+
+				<!-- Machine Learning-->
+				<section>
+					<h4>Machine Learning</h4>
+				</section>
+
+				<section>
+					<h4>Machine Learning</h4>
+					<img src='images/svviz_3_IMG_2.png' style="height: 500px;" alt='SV'>
+
+				</section>
+
+				<section>
+					<h4>Machine Learning</h4>
+					<img src='images/svviz_3_IMG_3.png' style="height: 500px;" alt='SV'>
+				</section>
+
+								<section>
+					<h4>Machine Learning</h4>
+					<img src='images/svviz_3_IMG_4.png' style="height: 500px;" alt='SV'>
+				</section>
+				<!--  -->
+
+								
+				<!-- Generate Labeled Data -->
+				<section>
+					<h4>Generate Labeled Data</h4>
+					<!-- <img src='images/svviz_3_IMG_5.png' style="height: 500px;" alt='SV'> -->
+				</section>
+				<section>
+					<h4>Generate Labeled Data</h4>
+					<img src='images/svviz_3_IMG_5.png' style="height: 500px;" alt='SV'>
+				</section>
+
+								<section>
+					<h4>Generate Labeled Data</h4>
+					<img src='images/svviz_3_IMG_6.png' style="height: 500px;" alt='SV'>
+				</section>
+
+								<section>
+					<h4>Generate Labeled Data</h4>
+					<img src='images/svviz_3_IMG_7.png' style="height: 500px;" alt='SV'>
+				</section>
+
+				<section>
+					<h4>Results</h4>
+					<!-- <img src='images/svviz_3_IMG_7.png' style="height: 500px;" alt='SV'> -->
+				</section>
+
+								<section>
+					<h4>Results</h4>
+					<img src='images/svviz_3_IMG_8.png' style="height: 500px;" alt='SV'>
+				</section>
+
+								<section>
+					<h4>Results</h4>
+					<img src='images/svviz_3_IMG_9.png' style="height: 500px;" alt='SV'>
+				</section>
+
+								<section>
+					<h4>Results</h4>
+					<img src='images/svviz_3_IMG_10.png' style="height: 500px;" alt='SV'>
+				</section>
+
+								<section>
+					<h4>Results</h4>
+					<img src='images/svviz_3_IMG_11.png' style="height: 500px;" alt='SV'>
+				</section>
+
+								<section>
+					<h4>Results</h4>
+					<img src='images/svviz_3_IMG_12.png' style="height: 500px;" alt='SV'>
+				</section>
+
+								<section>
+					<h4>Results</h4>
+					<img src='images/svviz_3_IMG_13.png' style="height: 500px;" alt='SV'>
+				</section>
+
+				<section>
+					<h4>Results</h4>
+					<img src='images/svviz_3_IMG_14.png' style="height: 500px;" alt='SV'>
+				</section>
+
+				<section>
+					<h4>Future Directions</h4>
+					<img src='images/svviz_3_IMG_15.png' style="height: 500px;" alt='SV'>
+				</section>
+				<!--  -->
+				<!-- Preliminary Machine Learning Analysis  -->
+				<section>
+					<h4>Preliminary Machine Learning Analysis</h4>
+					<!-- <img src='images/svviz_3_IMG_16.png' style="height: 500px;" alt='SV'> -->
+				</section>
+
+				<section>
+					<h4>Preliminary Machine Learning Analysis</h4>
+					<img src='images/svviz_3_IMG_16.png' style="height: 500px;" alt='SV'>
+				</section>
+
+				<section>
+					<h4>Preliminary Machine Learning Analysis</h4>
+					<img src='images/svviz_3_IMG_17.png' style="height: 500px;" alt='SV'>
+				</section>
+				<section>
+					<h4>Preliminary Machine Learning Analysis</h4>
+					<img src='images/svviz_3_IMG_18.png' style="height: 500px;" alt='SV'>
+				</section>
+				<section>
+					<h4>Preliminary Machine Learning Analysis</h4>
+					<img src='images/svviz_3_IMG_19.png' style="height: 500px;" alt='SV'>
+				</section>
+				<section>
+					<h4>Preliminary Machine Learning Analysis</h4>
+					<img src='images/svviz_3_IMG_20.png' style="height: 500px;" alt='SV'>
+				</section>
+
+				<!-- Future Directions  -->
+				<section>
+					<h4>Future Directions</h4>
+					<br>
+						<ul>
+						<li style="font-size: 30px !important" class= "fragment">Complete crowdsourcing app</li>
+						<li style="font-size: 30px !important" class= "fragment">Generate a representative labeled dataset</li>
+						<li style="font-size: 30px !important" class= "fragment">Improve machine learning approach</li>
+						<li style="font-size: 25px !important" class= "fragment">K-Fold Cross validation</li>
+						<li style="font-size: 25px !important" class= "fragment">Compare multiple machine learning models --> Select model with best perfomance</li>
+						<li style="font-size: 30px !important" class= "fragment">Classify groups of SVs based on complexity of genomic region</li>
+						</ul>
+				</section>
+				<!--  -->
+
+			<!-- Acknowledgements -->
+				<section>
+					<h3>Acknowledgements</h3>
+					<br>
+					<h3 style="font-size: 20px !important">NIST</h3>
+					<h3 style="font-size: 18px !important">Justin Zook</h3>
+					<h3 style="font-size: 18px !important">Marc Salit</h3>
+					<h3 style="font-size: 18px !important">Jennifer McDaniel</h3>
+					<h3 style="font-size: 18px !important">Patrick Pai</h3>
+<br>
+					<h3 style="font-size: 20px !important">Stanford</h3>
+					<h3 style="font-size: 18px !important">Noah Spies</h3>
+<br>
+					<h3 style="font-size: 20px !important">Genome in a Bottle Consortium</h3>
+					<h3 style="font-size: 18px !important">Nancy Hansen</h3>
+					<h3 style="font-size: 18px !important">Fritz Sedlazeck</h3>
+
+				
+				</section>
+				<!--  -->
+
+				<!-- End -->
+				<section>
+					<h5>End</h5>
+				</section>
+
+
+				<!-- Responses -->
+					<!-- Image slide -->
+				<section>
+					<h3>Slide 1</h3>
+					<img src='/Users/lmc2/GRC_Presentation/img/test_Slide1.png' style="height: 500px;" alt='DEL TSNE'>
+				</section>
+
+				<section>
+					<h3>Slide 2</h3>
+					<img src='/Users/lmc2/GRC_Presentation/img/test_Slide2.png' style="height: 500px;" alt='DEL TSNE'>
+				</section>
+
+				<section>
+					<h3>Slide 3</h3>
+					<img src='/Users/lmc2/GRC_Presentation/img/test_Slide3.png' style="height: 500px;" alt='DEL TSNE'>
+				</section>
+
+				<!--  -->
+
+
+
+
+			</div>
+
+			
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'none', // none/fade/slide/convex/concave/zoom
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '/Users/lmc2/Desktop/reveal/Test_edgePreload.js', async: true},
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+
+
+			
+
+		</script>
+
+		<section id="edgeanimation">
+					<p class="clientserver"></p>
+					<ul>
+						<li class="fragment">Client</li>
+						<li class="fragment" id="server">Server</li>
+					</ul>
+				</section>
+
+		<section id="edgeanimation">
+					<p style="height: 500px;" class="test"></p>
+					<ul>
+						<li class="fragment">Start</li>
+						<li class="fragment" id="server">Stop</li>
+					</ul>
+				</section>
+
+
+		<script>
+
+
+			Reveal.addEventListener('fragmentshown', function(event) {
+				if (event.fragment.id==='populate') {
+					document.querySelector("#myField").value="Don't forget"
+				}
+
+				if (event.fragment.id==='server') {
+					AdobeEdge.getComposition("clientserver").getStage().play("Start");
+				}
+
+			});
+
+			Reveal.addEventListener('slidechanged', function() {
+				if (event.currentSlide.id==='edgeanimation'){
+					AdobeEdge.getComposition("clientserver").getStage().play("End");
+				}
+			});
+		</script>
+
+	</body>
+</html>
